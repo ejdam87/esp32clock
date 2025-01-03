@@ -1,2 +1,5 @@
-# esp32clock
-Microcontroller based clock with sand-glass
+# ESP32-driven clock device
+
+| Front | Back |
+|----------|----------|
+|   ![front](./ims/front.jpg)   |   ![back](./ims/back.jpg)   |
