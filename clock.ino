@@ -1,10 +1,13 @@
 #include "display.h"
 #include "credentials.h"
 
+#include "soc/soc.h"
+#include "soc/rtc_cntl_reg.h"
 #include "WiFi.h"
 #include <time.h>
 #include <SPI.h>
 #include <ESP32Servo.h>
+
 
 // --- LED display
 // Pin definitions for MAX7219
@@ -70,7 +73,7 @@ void showTime( struct tm* time_info )
     prev_minute = minutes % 10;
   }
 
-  if ( minutes % 10 != prev_minute )
+  if ( prev_servo_update == -1 && minutes % 10 != prev_minute )
   {
     prev_servo_update = INITIAL_INVERT;
     REFRESH_INTERVAL *= 60; // from the initial update enough to update after one minute
@@ -83,6 +86,9 @@ void showTime( struct tm* time_info )
 
 void setup()
 {
+
+  WRITE_PERI_REG(RTC_CNTL_BROWN_OUT_REG, 0);  // Disable brown-out detection
+
   // Initialize serial communication
   Serial.begin( 115200 );
 
