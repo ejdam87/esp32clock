@@ -21,4 +21,6 @@ Besides that, I mounted a small plastic sand-glass to the servo motor.
 
 ## Software
 
-TODO
+I assume existance of file `credentials.h` which stores SSID and password for WiFi connection.
+Files `display.cpp` and `display.h` contain extension of [MAX7219 driver](https://docs.arduino.cc/libraries/ledcontrol/) providing simple interface for individual LED manipulation.
+Finally, `clock.ino` contains all the instructions for controlling the display and servo motor. It uses [ESP32 servo library](https://docs.arduino.cc/libraries/esp32servo/) for motor control.
