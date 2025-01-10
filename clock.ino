@@ -29,7 +29,7 @@ const int INITIAL_INVERT = -2;
 const int SERVO_OUT = 22;
 const int INVERT_INTERVAL = 180 * 1000;
 int prev_servo_update = -1;
-int direction = 0;
+int direction = 5;
 // ---
 
 // --- Time synchronization
@@ -94,7 +94,7 @@ void setup()
 
   // Initialize the MAX7219 device
   display.shutdown( false );       // Wake up the MAX7219 from power-saving mode
-  display.setIntensity( 8 );       // Set brightness level (0 is min, 15 is max)
+  display.setIntensity( 1 );       // Set brightness level (0 is min, 15 is max)
   display.clearDisplay();          // Clear the display
 
   // Connect to Wi-Fi
@@ -112,7 +112,7 @@ void setup()
   WiFi.disconnect();
   WiFi.mode( WIFI_OFF );
 
-  servo.attach(SERVO_OUT, 500, 2500);
+  servo.attach( SERVO_OUT );
   servo.write( direction );
 }
 
@@ -136,7 +136,7 @@ void handleServo()
   if ( prev_servo_update == INITIAL_INVERT || t - prev_servo_update >= INVERT_INTERVAL )
   {
     prev_servo_update = t;
-    direction = ( direction + 180 ) % 360;
+    direction = 180 - direction;
     servo.write( direction );
   }
 }
